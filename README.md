@@ -127,7 +127,7 @@ K-Means Clustering**
 
 
 ## **Önder Hüsnü Kabadayı (3 Visualizations – Exploratory/Statistical)**
-* Parallel Coordinates
+1. Parallel Coordinates
 
 * Visualizes multiple variables simultaneously.
 
@@ -141,7 +141,7 @@ K-Means Clustering**
 
 * Makes correlation patterns and upward/downward trends more visible.
 
-* Histogram + KDE
+2. Histogram + KDE
 
 * Displays the distribution of key metrics (Age, Purchase Amount, Review Rating).
 
@@ -155,7 +155,7 @@ K-Means Clustering**
 
 * Enables comparison of distributions across different groups (e.g., gender).
 
-* Season Line + Slider
+3. Season Line + Slider
 
 * Illustrates seasonal purchasing behavior from Winter → Autumn.
 
@@ -165,10 +165,9 @@ K-Means Clustering**
 
 * Distinguishes seasonal patterns for young, middle-aged, and older users.
 
-* Helps compare how season changes influence spending habits.
+* Helps compare how seasonal changes influence spending habits.
 
-* Provides an interactive, user-controlled analysis experience.
-
+* Provides an interactive, user-controlled analysis experience.
 
 
 ## **Mustafa Şekeroğlu (3 Visualizations – Distributions & Multidimensional Data)**
@@ -286,7 +285,7 @@ project-root/
 
 1. Violin Plot
 
-3. 3D Scatter
+3. 3D Scatter Plot
 
 5. Treemap
 
