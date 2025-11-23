@@ -75,7 +75,7 @@ All charts support hover tooltips, brushing, zooming, sliders, dropdowns, and au
  
 * Automated insights (dominant payment method, strongest path)
 
-**2. Sunburst / Treemap**
+**2. Sunburst**
 
 * Hierarchical navigation of Category → Item Purchased → Color with sum/mean/count aggregation.
 * Includes insight extraction (dominant categories, item diversity).
@@ -217,7 +217,7 @@ project-root/
 
 3. Sankey diagram
 
-5. Sunburst / Treemap
+5. Sunburst
 
 7. Payment-Category Network
 
