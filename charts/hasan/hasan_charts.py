@@ -10,6 +10,13 @@ from typing import Optional
 
 PLOTLY_CONFIG = {"displaylogo": False, "scrollZoom": True}
 
+def _insight_box(lines: List[str]) -> None:
+    clean_lines = [ln for ln in lines if ln]
+    if not clean_lines:
+        return
+    st.markdown("####  Insight")
+    for ln in clean_lines:
+        st.markdown(f"- {ln}")
 
 def _numeric_columns(df: pd.DataFrame) -> List[str]:
     return [col for col in df.columns if pd.api.types.is_numeric_dtype(df[col])]
@@ -27,7 +34,7 @@ def render_payment_sankey(df: pd.DataFrame) -> None:
         st.error("Dataset is empty.")
         return
 
-    # 🔹 VERİYİ AZALTMA SLIDER'I
+
     max_rows = len(df)
     default_rows = min(1000, max_rows)
     sample_rows = st.slider(
@@ -117,6 +124,34 @@ def render_payment_sankey(df: pd.DataFrame) -> None:
     if not values:
         st.warning("Flow values are zero across the board.")
         return
+    try:
+        total_flow = float(grouped["value"].sum())
+        first_dim = path_columns[0]
+        last_dim = path_columns[-1]
+
+        by_first = grouped.groupby(first_dim)["value"].sum().sort_values(ascending=False)
+        by_last = grouped.groupby(last_dim)["value"].sum().sort_values(ascending=False)
+
+        top_first = by_first.index[0]
+        top_first_val = int(by_first.iloc[0])
+
+        top_last = by_last.index[0]
+        top_last_val = int(by_last.iloc[0])
+
+        top_path = grouped.sort_values("value", ascending=False).iloc[0]
+        strongest_path_desc = " → ".join(str(top_path[c]) for c in path_columns)
+        strongest_path_val = int(top_path["value"])
+
+        _insight_box([
+            f"Total flow across all paths: **{int(total_flow):,} {value_label.lower()}**.",
+            f"Most common **{first_dim}** in the funnel: **{top_first}** ({top_first_val:,} {value_label.lower()}).",
+            f"Most frequent **{last_dim}** at the end of the funnel: **{top_last}** ({top_last_val:,} {value_label.lower()}).",
+            f"Strongest single path: **{strongest_path_desc}** "
+            f"({strongest_path_val:,} {value_label.lower()}).",
+        ])
+    except Exception:
+        # Insight hesaplanamazsa sessizce geç
+        pass
 
     fig = go.Figure(
         data=[
@@ -216,17 +251,29 @@ def render_sunburst_treemap(df: pd.DataFrame) -> None:
     fig.update_traces(hovertemplate=hover_template)
     fig.update_coloraxes(colorbar=dict(title=color_title))
     fig.update_layout(margin=dict(t=20, l=0, r=0, b=0))
+    try:
+        if "Category" in grouped.columns:
+            by_cat = grouped.groupby("Category")["value"].sum().sort_values(ascending=False)
+            top_cat = by_cat.index[0]
+            top_cat_val = int(by_cat.iloc[0])
+
+            unique_items = grouped["Item Purchased"].nunique() if "Item Purchased" in grouped.columns else None
+
+            lines = [
+                f"Dominant category in the hierarchy: **{top_cat}** "
+                f"({top_cat_val:,} total {agg_mode})."
+            ]
+            if unique_items:
+                lines.append(f"Total distinct items represented: **{unique_items:,}**.")
+            _insight_box(lines)
+    except Exception:
+        pass
     st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
 
 
 def render_payment_category_network(df: pd.DataFrame) -> None:
-    """
-    Network Diagram:
-    Payment Method  ---  Category
-    Assignment PDF'teki 'network diagram' örneğini karşılayan,
-    iki kategorik değişken arasındaki ilişkiyi gösteren bir advanced chart.
-    """
+
     st.subheader("Network – Payment Method ↔ Category")
     st.caption(
         "Each node is a payment method or product category; edges show how often they co-occur. "
@@ -244,7 +291,7 @@ def render_payment_category_network(df: pd.DataFrame) -> None:
         st.error("Dataset is empty.")
         return
 
-    # 🔹 VERİYİ AZALTMA SLIDER'I (büyük datada network çok şişmesin)
+
     max_rows = len(df)
     default_rows = min(3000, max_rows)
     sample_rows = st.slider(
@@ -283,7 +330,29 @@ def render_payment_category_network(df: pd.DataFrame) -> None:
     if grouped.empty:
         st.warning("No edges left after applying the threshold. Lower the slider.")
         return
+    try:
+        by_pm = grouped.groupby("Payment Method")["weight"].sum().sort_values(ascending=False)
+        by_cat = grouped.groupby("Category")["weight"].sum().sort_values(ascending=False)
 
+        top_pm = by_pm.index[0]
+        top_pm_val = int(by_pm.iloc[0])
+
+        top_cat = by_cat.index[0]
+        top_cat_val = int(by_cat.iloc[0])
+
+        strongest = grouped.sort_values("weight", ascending=False).iloc[0]
+        strongest_pm = str(strongest["Payment Method"])
+        strongest_cat = str(strongest["Category"])
+        strongest_val = int(strongest["weight"])
+
+        _insight_box([
+            f"Most connected payment method: **{top_pm}** ({top_pm_val:,} purchases).",
+            f"Most frequently purchased category overall: **{top_cat}** ({top_cat_val:,} purchases).",
+            f"Strongest single link: **{strongest_pm} → {strongest_cat}** "
+            f"({strongest_val:,} co-occurrences).",
+        ])
+    except Exception:
+        pass
     # Node setleri
     payment_nodes = grouped["Payment Method"].astype(str).unique().tolist()
     category_nodes = grouped["Category"].astype(str).unique().tolist()
@@ -484,7 +553,7 @@ def render_us_category_map(df: pd.DataFrame) -> None:
         metric_options = ["count"] + metric_candidates if metric_candidates else ["count"]
         metric_choice = st.selectbox("Metric", options=metric_options, index=0)
 
-    # Mod seçimi: 1) Top category, 2) Choropleth, 3) Choropleth + breakdown
+    # Mod seçimi
     mode = st.selectbox(
         "Map mode",
         options=[
@@ -497,7 +566,7 @@ def render_us_category_map(df: pd.DataFrame) -> None:
 
     working = df.copy()
 
-    # Satır sayısı slider'ı (performans kontrolü)
+    # Satır sayısı
     max_rows = len(working)
     if max_rows == 0:
         st.error("No data left for mapping.")
@@ -547,13 +616,26 @@ def render_us_category_map(df: pd.DataFrame) -> None:
         return
 
     # ----------------------------
-    # MODE 1: Most popular category per state
+    # MODE 1:
     # ----------------------------
     if mode == "Most popular category per state":
         # Her eyalet için en yüksek value'ya sahip kategoriyi bul
         idx = base.groupby("state_code")["value"].idxmax()
         top_df = base.loc[idx].copy()
         top_df.rename(columns={category_col: "top_category"}, inplace=True)
+
+        try:
+            cat_counts = top_df["top_category"].value_counts()
+            top_global_cat = cat_counts.index[0]
+            top_global_cat_states = int(cat_counts.iloc[0])
+
+            _insight_box([
+                f"Most dominant category across states: **{top_global_cat}** "
+                f"(top category in **{top_global_cat_states}** states).",
+                f"Total states represented: **{top_df['state_code'].nunique()}**.",
+            ])
+        except Exception:
+            pass
 
         fig = px.choropleth(
             top_df,
@@ -574,10 +656,20 @@ def render_us_category_map(df: pd.DataFrame) -> None:
         return
 
     # ----------------------------
-    # MODE 2 & 3: State bazında toplam metric
+    # MODE 2 & 3
     # ----------------------------
-    # State bazında toplam metric
+
     state_totals = base.groupby("state_code")["value"].sum().reset_index(name="total_value")
+    try:
+        top_row = state_totals.sort_values("total_value", ascending=False).iloc[0]
+        _insight_box([
+            f"State with highest {value_label.lower()}: **{top_row['state_code']}** "
+            f"({int(top_row['total_value']):,}).",
+            f"Number of states with non-zero {value_label.lower()}: "
+            f"**{(state_totals['total_value'] > 0).sum()}**.",
+        ])
+    except Exception:
+        pass
 
     if mode == "Metric choropleth by state":
         fig = px.choropleth(
@@ -595,9 +687,8 @@ def render_us_category_map(df: pd.DataFrame) -> None:
         return
 
     # ----------------------------
-    # MODE 3: Choropleth + category breakdown on hover
+    # MODE 3
     # ----------------------------
-    # Her eyalet için kategori dağılımını hover text'e gömelim
     rows = []
     for state in state_totals["state_code"].unique():
         sub = base[base["state_code"] == state].sort_values("value", ascending=False)
@@ -625,7 +716,16 @@ def render_us_category_map(df: pd.DataFrame) -> None:
     if breakdown_df.empty:
         st.error("No aggregated breakdown data to show.")
         return
-
+    try:
+        top_row = breakdown_df.sort_values("total_value", ascending=False).iloc[0]
+        _insight_box([
+            f"State with highest {value_label.lower()}: **{top_row['state_code']}** "
+            f"({int(top_row['total_value']):,}).",
+            f"Top category in that state: **{top_row['top_category']}**.",
+            f"States represented in breakdown: **{breakdown_df['state_code'].nunique()}**.",
+        ])
+    except Exception:
+        pass
     fig = px.choropleth(
         breakdown_df,
         locations="state_code",
