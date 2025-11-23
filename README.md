@@ -245,6 +245,7 @@ project-root/
 
 9. Shared filter integration
 10. Interactivity & UX design
+11. Aesthetic Tuning & Plot Adjustments
 
 
 
