@@ -19,9 +19,9 @@ from charts.hasan.hasan_charts import (
     render_scatter_regression,
 )
 from charts.mustafa.mustafa_charts import (
-    render_kmeans_clusters,
-    render_geographic_choropleth,
-    render_interactive_box_plot,
+    render_violin_plot,
+    render_scatter_plot,
+    render_treemap,
 )
 
 
@@ -130,25 +130,25 @@ PRESENTERS = {
     },
     "mustafa": {
         "label": "Mustafa Sekeroglu ",
-        "description": "Mustafa sahnesinde K-Means kümeleme, USA choropleth ve interaktif box plot var.",
+        "description": "Mustafa made Violin Plot, 3D Scatter Plot and Treemap.",
         "charts": [
             {
-                "id": "kmeans_clusters",
-                "label": "K-Means Clusters",
+                "id": "violin_plot",
+                "label": "Violin Plot",
                 "quality": "Advanced",
-                "func": render_kmeans_clusters,
+                "func": render_violin_plot,
             },
             {
-                "id": "choropleth",
-                "label": "USA Choropleth",
+                "id": "scatter_plot",
+                "label": "3D Scatter Plot",
                 "quality": "Advanced",
-                "func": render_geographic_choropleth,
+                "func": render_scatter_plot,
             },
             {
-                "id": "interactive_box",
-                "label": "Interactive Box Plot",
+                "id": "treemap",
+                "label": "Treemap",
                 "quality": "Advanced",
-                "func": render_interactive_box_plot,
+                "func": render_treemap,
             },
         ],
     },
