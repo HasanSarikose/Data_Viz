@@ -24,6 +24,7 @@ from charts.mustafa.mustafa_charts import (
     render_scatter_plot,
     render_treemap,
 )
+from charts.hasan.ml_charts import render_kmeans_clusters
 
 
 st.set_page_config(
@@ -132,6 +133,12 @@ PRESENTERS = {
             "label": "US Category Map",
             "quality": "Advanced",
             "func": render_us_category_map,
+        },
+{
+            "id": "kmeans_clusters",
+            "label": "K-Means Clusters",
+            "quality": "Advanced",
+            "func": render_kmeans_clusters,
         }
     ],
 },
