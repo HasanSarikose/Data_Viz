@@ -127,14 +127,47 @@ K-Means Clustering**
 
 
 ## **Önder Hüsnü Kabadayı (3 Visualizations – Exploratory/Statistical)**
-1. **Parallel Coordinates:** Shows how Age, Purchase Amount, Review Rating, and Previous Purchases interact.
-Brushing reveals high-spending demographic slices and gender-based differences.
+* Parallel Coordinates
 
-2. **Histogram + KDE:** Explores the distribution of key metrics (Age, Purchase Amount, Review Rating):
-Highlights skewness, outliers, and peaks.
+* Visualizes multiple variables simultaneously.
 
-3. **Season Line + Slider:** Seasonal purchase behavior from Winter → Autumn with an age-range slider.
-Allows age-specific comparison of seasonal spending trends.
+* Shows relationships among Age, Purchase Amount, Review Rating, and Previous Purchases.
+
+* Brushing allows filtering specific value ranges for deeper analysis.
+
+* Highlights high-spending demographic segments.
+
+* Reveals potential gender-based behavioral differences.
+
+* Makes correlation patterns and upward/downward trends more visible.
+
+* Histogram + KDE
+
+* Displays the distribution of key metrics (Age, Purchase Amount, Review Rating).
+
+* KDE smoothens the density curve for clearer interpretation.
+
+* Outliers can be identified quickly.
+
+* Highlights skewness and symmetry/asymmetry in the data.
+
+* Shows peaks where user behavior is most concentrated.
+
+* Enables comparison of distributions across different groups (e.g., gender).
+
+* Season Line + Slider
+
+* Illustrates seasonal purchasing behavior from Winter → Autumn.
+
+* Shows clear upward or downward spending trends over time.
+
+* Age-range slider enables filtering by specific age groups.
+
+* Distinguishes seasonal patterns for young, middle-aged, and older users.
+
+* Helps compare how season changes influence spending habits.
+
+* Provides an interactive, user-controlled analysis experience.
 
 
 
