@@ -155,99 +155,117 @@ Insights: largest cluster, purchase power, behavioral segments
 **🧠 Machine Learning Component
 K-Means Clustering**
 
-Feature selection (Age, Purchase Amount, Review Rating, Previous Purchases, etc.)
-
-Automatic scaling
-
-2D visualization with cluster coloring
-
-Insight extraction for business interpretation
-
-(Optional ML requirement completed)
-
-💬 Insight Engine – Automated Commentary
-
-Every chart includes an automated insight generator that detects:
-
-Dominant categories
-
-Behavioral clusters
-
-Seasonal peaks
-
-Strongest Sankey flows
-
-Top-performing states
-
-Outlier-heavy distributions
-
-High-spending customer groups
-
-This transforms visualizations into narrative analytics, directly satisfying the “insight generation” component of the assignment.
-
-🧱 Project Architecture
-/charts
-    /onder
-    /hasan
-    /mustafa
-    /ml
-/utils
-main.py
-README.md
-shopping_behavior.csv
+* Feature selection (Age, Purchase Amount, Review Rating, Previous Purchases, etc.)
 
 
-Modular chart structure per contributor
+* Automatic scaling
 
-Shared global filter pipeline
 
-Singleton dataset management
+* 2D visualization with cluster coloring
 
-Animated CSS styling + responsive grid layout
 
-👥 Team Contributions Summary
-Önder Hüsnü Kabadayı
+* Insight extraction for business interpretation
 
-Parallel Coordinates
 
-Histogram + KDE
+* (Optional ML requirement completed)
 
-Seasonal Trend + Slider
+**💬 Insight Engine – Automated Commentary**
 
-Distribution analysis, demographic slicing
+* Every chart includes an automated insight generator that detects:
 
-Shared filter integration
+
+* Dominant categories
+
+
+* Behavioral clusters
+
+
+* Seasonal peaks
+
+
+* Strongest Sankey flows
+
+
+* Top-performing states
+
+
+* Outlier-heavy distributions
+
+
+* High-spending customer groups
+
+
+* This transforms visualizations into narrative analytics, directly satisfying the “insight generation” component of the assignment.
+
+**🧱 Project Architecture**
+ `   /charts
+        /onder
+        /hasan
+        /mustafa
+        /ml
+    /utils
+    main.py
+    README.md
+    shopping_behavior.csv`
+
+
+* Modular chart structure per contributor
+
+
+* Shared global filter pipeline
+
+
+* Singleton dataset management
+
+
+* Animated CSS styling + responsive grid layout
+
+**👥 Team Contributions Summary**
 
 Hasan Sarıköse
 
-Repository creation & full architecture design
+1. Repository creation & full architecture design
 
-Sankey diagram
+3. Sankey diagram
 
-Sunburst / Treemap
+5. Sunburst / Treemap
 
-Payment-Category Network
+7. Payment-Category Network
 
-USA 3-Mode Category Map
+9. USA 3-Mode Category Map
 
-K-Means Clustering (ML module)
+11. K-Means Clustering (ML module)
 
-Automated insight engine
+13. Automated insight engine
 
-Data cleaning + preprocessing pipeline
+15. Data cleaning + preprocessing pipeline
 
-Interactivity & UX design
+17. Interactivity & UX design
 
-Dataset upload & cleaning system
+19. Dataset upload & cleaning system
+
+Önder Hüsnü Kabadayı
+
+1. Parallel Coordinates
+
+3. Histogram + KDE
+
+5. Seasonal Trend + Slider
+
+7. Distribution analysis, demographic slicing
+
+9. Shared filter integration
+
+
 
 Mustafa Şekeroğlu
 
-Violin Plot
+1. Violin Plot
 
-3D Scatter
+3. 3D Scatter
 
-Treemap
+5. Treemap
 
-Category distribution analysis
+7. Category distribution analysis
 
-Aesthetic tuning & plot adjustments
+9. Aesthetic tuning & plot adjustments
