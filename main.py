@@ -8,20 +8,20 @@ from utils.data_loader import (
     load_uploaded_data,
 )
 
-from charts.person1.trend_charts import (
+from charts.onder.onder_charts import (
     render_parallel_coordinates,
-    render_sunburst_treemap,
-    render_interactive_box_plot,
-)
-from charts.person2.category_charts import (
-    render_payment_sankey,
-    render_geographic_choropleth,
+    render_histogram_kde,
     render_season_line_slider,
 )
-from charts.person3.stat_charts import (
-    render_kmeans_clusters,
-    render_histogram_kde,
+from charts.hasan.hasan_charts import (
+    render_payment_sankey,
+    render_sunburst_treemap,
     render_scatter_regression,
+)
+from charts.mustafa.mustafa_charts import (
+    render_kmeans_clusters,
+    render_geographic_choropleth,
+    render_interactive_box_plot,
 )
 
 
@@ -80,9 +80,9 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 HOME_KEY = "home"
 HOME_LABEL = "Ana Sahne"
 PRESENTERS = {
-    "person1": {
+    "onder": {
         "label": "Husnu Onder Kabadayi ",
-        "description": "Onder sahnesinde paralel koordinatlar, histogram + KDE ve mevsimsel trend var.",
+        "description": "Onder sahnesinde paralel koordinatlar, histogram + KDE ve sezon trendi yer alıyor.",
         "charts": [
             {
                 "id": "parallel_coordinates",
@@ -104,9 +104,9 @@ PRESENTERS = {
             },
         ],
     },
-    "person2": {
+    "hasan": {
         "label": "Hasan Sarikose ",
-        "description": "Hasan  Sankey, K-Means k?meleme ve kategori sunburst ile ilerliyor.",
+        "description": "Hasan sahnesi Sankey, kategori sunburst ve regresyon scatter ile devam ediyor.",
         "charts": [
             {
                 "id": "payment_sankey",
@@ -115,23 +115,29 @@ PRESENTERS = {
                 "func": render_payment_sankey,
             },
             {
-                "id": "kmeans_clusters",
-                "label": "K-Means Clusters",
-                "quality": "Advanced",
-                "func": render_kmeans_clusters,
-            },
-            {
                 "id": "sunburst_treemap",
                 "label": "Sunburst / Treemap",
                 "quality": "Advanced",
                 "func": render_sunburst_treemap,
             },
+            {
+                "id": "scatter_regression",
+                "label": "Regression Scatter",
+                "quality": "Medium",
+                "func": render_scatter_regression,
+            },
         ],
     },
-    "person3": {
+    "mustafa": {
         "label": "Mustafa Sekeroglu ",
-        "description": "Mustafa artik USA heatmap, interaktif box plot ve regresyonla davran??lar? anlat?yor.",
+        "description": "Mustafa sahnesinde K-Means kümeleme, USA choropleth ve interaktif box plot var.",
         "charts": [
+            {
+                "id": "kmeans_clusters",
+                "label": "K-Means Clusters",
+                "quality": "Advanced",
+                "func": render_kmeans_clusters,
+            },
             {
                 "id": "choropleth",
                 "label": "USA Choropleth",
@@ -143,12 +149,6 @@ PRESENTERS = {
                 "label": "Interactive Box Plot",
                 "quality": "Advanced",
                 "func": render_interactive_box_plot,
-            },
-            {
-                "id": "scatter_regression",
-                "label": "Regression Scatter",
-                "quality": "Medium",
-                "func": render_scatter_regression,
             },
         ],
     },
