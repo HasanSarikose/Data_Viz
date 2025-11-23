@@ -229,7 +229,7 @@ project-root/
 
 15. Data cleaning + preprocessing pipeline
 
-17. Interactivity & UX design
+17. Creating UX design
 
 19. Dataset upload & cleaning system
 
@@ -244,6 +244,7 @@ project-root/
 7. Distribution analysis, demographic slicing
 
 9. Shared filter integration
+10. Interactivity & UX design
 
 
 
