@@ -266,4 +266,4 @@ project-root/
 
 4. Category distribution analysis
 
-. Aesthetic tuning & plot adjustments
+5. Aesthetic tuning & plot adjustments
