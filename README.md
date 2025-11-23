@@ -65,52 +65,38 @@ All charts support hover tooltips, brushing, zooming, sliders, dropdowns, and au
 # **📊 Visualization List (11 Total)**
 
 ## **Hasan Sarıköse (5 Visualizations – Advanced & ML)**
-**1. Payment → Category → Subscription Sankey**
-    
-* Advanced multi-level flow analysis with:
 
-* Custom metrics (count, purchase amount, previous purchases)
+### **1. Payment → Category → Subscription Sankey**
+- Visualizes multi-level payment → category → subscription funnels.
+- Supports custom metrics (count, purchase amount, previous purchases).
+- Hover paths, drag interactions, and flow filtering keep the diagram readable.
+- Automated commentary calls out dominant payment methods and strongest paths.
+- Highlights leakage by exposing thin links between steps.
 
-* Flow filtering, hover paths, drag interactivity
- 
-* Automated insights (dominant payment method, strongest path)
+### **2. Sunburst**
+- Explores Category → Item Purchased → Color with sum/mean/count aggregations.
+- Lets viewers collapse/expand levels to understand category depth.
+- Reveals dominant items or colors inside each category.
+- Works as both an overview and drill-down hierarchy explorer.
 
-**2. Sunburst**
+### **3. Payment ↔ Category Network Diagram**
+- Bipartite layout shows co-occurrence strength between payment methods and categories.
+- Edge thickness reflects purchase frequency, spotlighting strong pairs.
+- Node layering separates payment nodes (left) and categories (right) for clarity.
+- Automated insight engine identifies the most connected payment type.
 
-* Hierarchical navigation of Category → Item Purchased → Color with sum/mean/count aggregation.
-* Includes insight extraction (dominant categories, item diversity).
+### **4. USA Category Map (3 Modes)**
+- Provides a full geographic module for category performance.
+- Mode A: Most popular category per state (categorical fills).
+- Mode B: Choropleth by metric (count or purchase amount).
+- Mode C: Choropleth plus category breakdown on hover.
+- Auto-detects state names/codes and supports map zoom/hover storytelling.
 
-**3. Payment ↔ Category Network Diagram**
-
-* Bipartite network visualizing co-occurrence strength:
-
-* Edge thickness = purchase frequency
-
-* Node layers (payment left, category right)
-
-* Insight engine: strongest link, most connected payment method
-
-**4. USA Category Map (3 Modes)**
-
-* A complete geographic analytics module:
-
-* Mode A: Most popular category per state
-
-* Mode B: Metric choropleth (count/amount)
-
-* Mode C: Choropleth + category breakdown on hover
-
-* Supports automatic state detection and state-code mapping.
-
-
-**5. Machine Learning Component
-K-Means Clustering**
-
-* Feature selection (Age, Purchase Amount, Review Rating, Previous Purchases, etc.)
-* Automatic scaling
-* 2D visualization with cluster coloring
-* Insight extraction for business interpretation
-* (Optional ML requirement completed)
+### **5. Machine Learning – K-Means Clustering**
+- Clusters shoppers using Age, Purchase Amount, Review Rating, Previous Purchases, etc.
+- Handles automatic scaling and parameter selection for stability.
+- Visualizes clusters in 2D with color-coded centroids.
+- Generates business-friendly interpretation notes for each persona.
 
 **6. Insight Engine – Automated Commentary**
 * Every chart includes an automated insight generator that detects:
@@ -126,71 +112,60 @@ K-Means Clustering**
 
 
 
-## **Önder Hüsnü Kabadayı (3 Visualizations – Exploratory/Statistical)**
-1. Parallel Coordinates
+## **Hüsnü Önder Kabadayı (3 Visualizations – Exploratory/Statistical)**
+### **1. Parallel Coordinates**
+- Visualizes multiple variables simultaneously.
+- Shows relationships among Age, Purchase Amount, Review Rating, and Previous Purchases.
+- Brushing allows filtering specific value ranges for deeper analysis.
+- Highlights high-spending demographic segments.
+- Reveals potential gender-based behavioral differences.
+- Makes correlation patterns and upward/downward trends more visible.
+### **. Insight**
+- Brushing Age and Purchase Amount instantly exposes dense bundles where loyal, high-ticket cohorts concentrate.
+- The color channel mirrors the selected KPI, so sudden hue shifts flag Review Rating or Previous Purchase anomalies without leaving the chart.
 
-* Visualizes multiple variables simultaneously.
+### **2. Histogram + KDE**
+- Displays the distribution of key metrics (Age, Purchase Amount, Review Rating).
+- KDE smoothens the density curve for clearer interpretation.
+- Outliers can be identified quickly.
+- Highlights skewness and symmetry/asymmetry in the data.
+- Shows peaks where user behavior is most concentrated.
+- Enables comparison of distributions across different groups (e.g., gender).
+### **. Insight**
+- Long tails expose which categories generate extreme spend or ratings, letting us call out risky or high-opportunity cohorts.
+- The KDE overlay smooths noisy histogram bars, so multi-modal behavior pops when comparing gender or season filters.
 
-* Shows relationships among Age, Purchase Amount, Review Rating, and Previous Purchases.
-
-* Brushing allows filtering specific value ranges for deeper analysis.
-
-* Highlights high-spending demographic segments.
-
-* Reveals potential gender-based behavioral differences.
-
-* Makes correlation patterns and upward/downward trends more visible.
-
-2. Histogram + KDE
-
-* Displays the distribution of key metrics (Age, Purchase Amount, Review Rating).
-
-* KDE smoothens the density curve for clearer interpretation.
-
-* Outliers can be identified quickly.
-
-* Highlights skewness and symmetry/asymmetry in the data.
-
-* Shows peaks where user behavior is most concentrated.
-
-* Enables comparison of distributions across different groups (e.g., gender).
-
-3. Season Line + Slider
-
-* Illustrates seasonal purchasing behavior from Winter → Autumn.
-
-* Shows clear upward or downward spending trends over time.
-
-* Age-range slider enables filtering by specific age groups.
-
-* Distinguishes seasonal patterns for young, middle-aged, and older users.
-
-* Helps compare how seasonal changes influence spending habits.
-
-* Provides an interactive, user-controlled analysis experience.
+### **3. Season Line + Slider**
+- Illustrates seasonal purchasing behavior from Winter → Autumn.
+- Shows clear upward or downward spending trends over time.
+- Age-range slider enables filtering by specific age groups.
+- Distinguishes seasonal patterns for young, middle-aged, and older users.
+- Helps compare how seasonal changes influence spending habits.
+- Provides an interactive, user-controlled analysis experience.
+### **. Insight**
+- Locking the age slider makes it easy to narrate exactly when each cohort peaks from Winter → Autumn.
+- The range slider zoom highlights micro-season spikes (e.g., holidays), so contrasting age groups remains interactive.
 
 
 ## **Mustafa Şekeroğlu (3 Visualizations – Distributions & Multidimensional Data)**
 
-**1. Violin Plot**
+### **1. Violin Plot**
+- Displays Purchase Amount and Review Rating distributions across age groups and customer segments.
+- Combines violin, box, and jitter marks for both density and individual outlier context.
+- Highlights which cohorts have wide variance versus tight spending behavior.
+- Useful for spotting retention risks or premium buyer pools.
 
-* Visualizes the distribution of Purchase Amount and Review Rating across: 
-* Age groups 
-* Customer segments
-* Includes boxplot and jittered points for detail.
+### **2. 3D Scatter Plot**
+- Plots Age, Purchase Amount, and Previous Purchases simultaneously.
+- Color encodes categorical groups to show how segments distribute in 3D space.
+- Helps detect natural clusters (e.g., young heavy spenders) worth targeted campaigns.
+- Adjustable markers and camera angles aid interactive storytelling.
 
-**2. 3D Scatter Plot**
-
-* Examines relationships between:
-* Age
-* Purchase Amount 
-* Previous Purchases
-* With color encoding for categorical groups.
-
-**3. Treemap**
-
-* Shows categorical distribution (segments or rating levels) with size & color based on aggregated values.
-* Ideal for summarizing hierarchical or categorical compositions.
+### **3. Treemap**
+- Summarizes category or rating hierarchies with area (value) plus color (performance).
+- Quickly reveals dominant segments and their proportional contribution.
+- Nested layout clarifies how sub-groups roll up into parent categories.
+- Ideal for comparing categorical mixes or highlighting revenue concentration.
 
 
 ## 🧱 Project Architecture
@@ -265,19 +240,19 @@ project-root/
 
 19. Dataset upload & cleaning system
 
-**Önder Hüsnü Kabadayı**
+**Hüsnü Önder Kabadayı**
 
 1. Parallel Coordinates
 
-3. Histogram + KDE
+2. Histogram + KDE
 
-5. Seasonal Trend + Slider
+3. Seasonal Trend + Slider
 
-7. Distribution analysis, demographic slicing
+4. Distribution analysis, demographic slicing
 
-9. Shared filter integration
-10. Interactivity & UX design
-11. Aesthetic Tuning & Plot Adjustments
+5. Shared filter integration
+6. Interactivity & UX design
+7. Aesthetic Tuning & Plot Adjustments
 
 
 
@@ -285,10 +260,10 @@ project-root/
 
 1. Violin Plot
 
-3. 3D Scatter Plot
+2. 3D Scatter Plot
 
-5. Treemap
+3. Treemap
 
-7. Category distribution analysis
+4. Category distribution analysis
 
-9. Aesthetic tuning & plot adjustments
+. Aesthetic tuning & plot adjustments

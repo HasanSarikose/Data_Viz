@@ -18,6 +18,15 @@ PARALLEL_COLUMNS: List[Tuple[str, str]] = [
 ]
 
 
+def _insight_box(title: str, lines: List[str]) -> None:
+    clean_lines = [ln for ln in lines if ln]
+    if not clean_lines:
+        return
+    st.markdown(f"**{title}**")
+    for ln in clean_lines:
+        st.markdown(f"- {ln}")
+
+
 def _missing_columns(df: pd.DataFrame, columns: List[str]) -> List[str]:
     return [col for col in columns if col not in df.columns]
 
@@ -120,6 +129,13 @@ def render_parallel_coordinates(df: pd.DataFrame) -> None:
         coloraxis_colorbar=dict(title=color_metric),
         margin=dict(t=20, l=0, r=0, b=0),
     )
+    _insight_box(
+        "Parallel Coordinates Insight",
+        [
+            "Brush age and spend axes to isolate loyal cohorts; dense bundles show which segments convert together.",
+            "Color encoding mirrors the chosen KPI, so sudden shifts in hue flag metric anomalies immediately.",
+        ],
+    )
     st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
 
@@ -133,6 +149,7 @@ def render_histogram_kde(df: pd.DataFrame) -> None:
         return
 
     col = st.selectbox("Numeric column", options=numeric_cols, index=0)
+    metric_name = col
     data = df[col].dropna()
     if data.empty:
         st.error("No numeric values to plot.")
@@ -167,6 +184,13 @@ def render_histogram_kde(df: pd.DataFrame) -> None:
         bargap=0.05,
         margin=dict(t=20, l=0, r=0, b=0),
         yaxis_title="Count / Density",
+    )
+    _insight_box(
+        "Histogram + KDE Insight",
+        [
+            f"The long tail in {metric_name} exposes which categories produce extreme shoppers.",
+            "The KDE overlay smooths the bars, making multi-modal bumps obvious without losing detail.",
+        ],
     )
     st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
@@ -238,6 +262,13 @@ def render_season_line_slider(df: pd.DataFrame) -> None:
         ),
         yaxis=dict(title="Average Purchase Amount (USD)"),
         hovermode="x unified",
+    )
+    _insight_box(
+        "Season Line + Slider Insight",
+        [
+            f"Age filter is pinned to {age_range[0]}–{age_range[1]} so we can narrate exactly when demand peaks.",
+            "Use the range slider to zoom into Winter→Autumn blocks and explain how each age band reacts.",
+        ],
     )
     st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
     st.caption(f"Age range applied: {age_range[0]} - {age_range[1]} years.")

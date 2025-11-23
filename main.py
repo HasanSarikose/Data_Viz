@@ -239,6 +239,34 @@ def render_data_snapshot(df: pd.DataFrame) -> None:
         st.caption(f"{len(df):,} rows x {len(df.columns)} columns")
 
 
+def apply_row_limit(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df
+
+    max_rows = len(df)
+    default_limit = st.session_state.get("row_limit", max_rows)
+    default_limit = min(default_limit, max_rows)
+
+    min_rows = 1
+    if max_rows > 1000:
+        min_rows = 500
+
+    row_limit = st.sidebar.slider(
+        "Rows in use",
+        min_value=min_rows,
+        max_value=max_rows,
+        value=default_limit,
+        step=max(1, max_rows // 100),
+        help="Adjust once and every presenter will share the same subset size.",
+        key="row_limit_slider",
+    )
+    st.session_state["row_limit"] = row_limit
+
+    if row_limit < max_rows:
+        return df.head(row_limit)
+    return df
+
+
 def apply_global_filters(df: pd.DataFrame) -> pd.DataFrame:
     filter_specs = [
         ("Gender", "Gender"),
@@ -380,17 +408,28 @@ def main() -> None:
         if filtered_df.empty:
             st.error("Filters removed all rows. Clear some selections to continue.")
             return
-        st.session_state["filtered_df"] = filtered_df
-        render_home_stage(filtered_df)
+        st.session_state["filtered_df_raw"] = filtered_df
+        limited_df = apply_row_limit(filtered_df)
+        if limited_df.empty:
+            st.error("Row limit slider filtered everything out. Increase the number of rows to continue.")
+            return
+        st.session_state["filtered_df"] = limited_df
+        render_home_stage(limited_df)
         st.info("Grafikleri görmek için soldan bir sunucu seç.")
         return
 
-    filtered_df = st.session_state.get("filtered_df", df)
-    if filtered_df.empty:
+    base_filtered = st.session_state.get("filtered_df_raw", df)
+    if base_filtered.empty:
         st.error("No filtered data available. Return to Ana Sahne to configure filters.")
         return
 
-    render_chart_switcher(presenter_key, filtered_df)
+    limited_df = apply_row_limit(base_filtered)
+    if limited_df.empty:
+        st.error("Row limit slider filtered everything out. Increase the number of rows to continue.")
+        return
+    st.session_state["filtered_df"] = limited_df
+
+    render_chart_switcher(presenter_key, limited_df)
 
 
 if __name__ == "__main__":
