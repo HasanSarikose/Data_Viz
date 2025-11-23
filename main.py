@@ -16,7 +16,8 @@ from charts.onder.onder_charts import (
 from charts.hasan.hasan_charts import (
     render_payment_sankey,
     render_sunburst_treemap,
-    render_scatter_regression,
+    render_payment_category_network,
+    render_us_category_map,
 )
 from charts.mustafa.mustafa_charts import (
     render_violin_plot,
@@ -105,29 +106,35 @@ PRESENTERS = {
         ],
     },
     "hasan": {
-        "label": "Hasan Sarikose ",
-        "description": "Hasan sahnesi Sankey, kategori sunburst ve regresyon scatter ile devam ediyor.",
-        "charts": [
-            {
-                "id": "payment_sankey",
-                "label": "Payment Sankey",
-                "quality": "Advanced",
-                "func": render_payment_sankey,
-            },
-            {
-                "id": "sunburst_treemap",
-                "label": "Sunburst / Treemap",
-                "quality": "Advanced",
-                "func": render_sunburst_treemap,
-            },
-            {
-                "id": "scatter_regression",
-                "label": "Regression Scatter",
-                "quality": "Medium",
-                "func": render_scatter_regression,
-            },
-        ],
-    },
+    "label": "Hasan Sarikose ",
+    "description": "Hasan sahnesi Sankey, sunburst/treemap ve network diagram ile devam ediyor.",
+    "charts": [
+        {
+            "id": "payment_sankey",
+            "label": "Payment Sankey",
+            "quality": "Advanced",
+            "func": render_payment_sankey,
+        },
+        {
+            "id": "sunburst_treemap",
+            "label": "Sunburst / Treemap",
+            "quality": "Advanced",
+            "func": render_sunburst_treemap,
+        },
+        {
+            "id": "payment_category_network",
+            "label": "Payment ↔ Category Network",
+            "quality": "Advanced",
+            "func": render_payment_category_network,
+        },
+        {
+            "id": "us_category_map",
+            "label": "US Category Map",
+            "quality": "Advanced",
+            "func": render_us_category_map,
+        }
+    ],
+},
     "mustafa": {
         "label": "Mustafa Sekeroglu ",
         "description": "Mustafa made Violin Plot, 3D Scatter Plot and Treemap.",
